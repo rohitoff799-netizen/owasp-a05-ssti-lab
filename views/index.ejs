@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OWASP A05 SSTI Lab</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f6fb; color:#1e293b; margin:0; }
+    .container { max-width: 980px; margin: 0 auto; padding: 32px 20px; }
+    .hero, .panel, .card { background:#fff; border-radius:16px; box-shadow:0 8px 24px rgba(15,23,42,.08); }
+    .hero { padding:32px; margin-bottom:24px; }
+    .panel { padding:28px; margin-bottom:24px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
+    .card { padding:20px; }
+    h1,h2,h3 { margin-top:0; }
+    .muted { color:#475569; }
+    label { display:block; font-weight:700; margin:14px 0 8px; }
+    input, textarea, select { width:100%; padding:12px 14px; border:1px solid #cbd5e1; border-radius:10px; font-size:15px; }
+    textarea { min-height:120px; resize:vertical; }
+    button { margin-top:16px; background:#0f766e; color:#fff; border:none; padding:12px 18px; border-radius:10px; font-weight:700; cursor:pointer; }
+    code { background:#e2e8f0; padding:2px 6px; border-radius:6px; }
+    ul { padding-left:20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>Greeting Studio – SSTI Lab</h1>
+      <p class="muted">A small educational Node.js lab that intentionally demonstrates unsafe server-side template construction with EJS.</p>
+      <p><strong>Goal:</strong> show how user input placed directly inside a template can be evaluated by the server instead of being treated as plain text.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Preview Form</h2>
+      <form method="POST" action="/preview">
+        <label for="name">Recipient name</label>
+        <input id="name" name="name" type="text" placeholder="Rohit" />
+
+        <label for="message">Card message</label>
+        <textarea id="message" name="message" placeholder="Write a greeting message here"></textarea>
+
+        <label for="style">Card style</label>
+        <select id="style" name="style">
+          <option value="classic">Classic</option>
+          <option value="modern">Modern</option>
+          <option value="festival">Festival</option>
+        </select>
+
+        <button type="submit">Generate vulnerable preview</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>Test payloads</h2>
+      <ul>
+        <li>Normal text: <code>Happy Birthday!</code></li>
+        <li>Detection payload in message: <code>&lt;%= 7*7 %&gt;</code></li>
+        <li>Error-based probing: <code>&lt;% invalid js here %&gt;</code></li>
+      </ul>
+      <p class="muted">If the server evaluates the payload and you see <code>49</code> in the preview, the lab is behaving as intended.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Sample content</h2>
+      <div class="grid">
+        <% cards.forEach(card => { %>
+          <div class="card">
+            <h3><%= card.title %></h3>
+            <p><%= card.message %></p>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

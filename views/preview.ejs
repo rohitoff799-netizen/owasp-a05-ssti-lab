@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vulnerable Preview</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#0f172a; color:#e2e8f0; margin:0; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+    .panel { background:#111827; border:1px solid #334155; border-radius:16px; padding:24px; margin-bottom:20px; }
+    .preview-card { background:#fff; color:#0f172a; border-radius:16px; padding:28px; box-shadow:0 10px 25px rgba(0,0,0,.15); }
+    .classic { border-top:8px solid #0f766e; }
+    .modern { border-top:8px solid #2563eb; }
+    .festival { border-top:8px solid #ea580c; }
+    .badge { display:inline-block; background:#e2e8f0; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700; margin-bottom:14px; }
+    a { color:#67e8f9; }
+    .error { color:#fca5a5; white-space:pre-wrap; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="panel">
+      <h1>Vulnerable Preview Output</h1>
+      <p>This page renders a template string built from user input. If template syntax was accepted and executed, you are seeing server-side template injection behavior.</p>
+      <p><a href="/">Back to home</a></p>
+    </div>
+
+    <% if (error) { %>
+      <div class="panel">
+        <h2>Template error</h2>
+        <p class="error"><%= error %></p>
+      </div>
+    <% } %>
+
+    <% if (html) { %>
+      <div class="panel">
+        <h2>Rendered card</h2>
+        <%- html %>
+      </div>
+    <% } %>
+
+    <div class="panel">
+      <h2>Try the safe version</h2>
+      <p>Compare this vulnerable flow with a safer route that treats input as data instead of executable template syntax.</p>
+      <p><a href="/safe-preview?name=<%= encodeURIComponent(name) %>&message=<%= encodeURIComponent(message) %>&style=<%= encodeURIComponent(style) %>">Open safe preview</a></p>
+    </div>
+  </div>
+</body>
+</html>

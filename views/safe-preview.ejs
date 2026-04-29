@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Safe Preview</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f8fafc; color:#0f172a; margin:0; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+    .panel, .preview-card { background:#fff; border:1px solid #cbd5e1; border-radius:16px; padding:24px; }
+    .preview-card { margin-top:20px; }
+    .classic { border-top:8px solid #0f766e; }
+    .modern { border-top:8px solid #2563eb; }
+    .festival { border-top:8px solid #ea580c; }
+    .badge { display:inline-block; background:#e2e8f0; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700; margin-bottom:14px; }
+    a { color:#0f766e; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="panel">
+      <h1>Safe Preview</h1>
+      <p>This route renders variables through a normal EJS view instead of evaluating attacker-controlled template syntax inside a newly created template string.</p>
+      <p><a href="/">Back to home</a></p>
+    </div>
+
+    <div class="preview-card <%= style %>">
+      <div class="badge">Safe Mode</div>
+      <h2>Greeting for <%= name %></h2>
+      <p><%= message %></p>
+      <small>Generated safely by Greeting Studio</small>
+    </div>
+  </div>
+</body>
+</html>
