@@ -203,3 +203,10 @@ By building this lab, I practiced:
 ## Disclaimer
 
 This project is for **educational and local testing purposes only**. It is intentionally vulnerable so that SSTI behavior can be studied safely in a controlled environment.[web:44][web:46]
+## Screenshots
+
+### Home / Lab Interface
+![Home page](Screenshot%202026-04-30%20020757.png)
+
+### SSTI Payload Result
+![SSTI result](Screenshot%202026-04-30%20020805.png)
